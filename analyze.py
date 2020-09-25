@@ -10,6 +10,10 @@ import pytz
 from dateutil.parser import parse as date_parse
 import mysql.connector
 from timeit import default_timer as timer
+import logging
+
+logging.basicConfig(filename='scripts.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M%S %p')
+
 
 def convert_timezone(dt, tz):
     """
@@ -58,8 +62,7 @@ def insert_temperature_record(temperature, t_stamp, cursor, cnx):
         cnx.commit()
         return True
     except Exception as e:
-        print("issue inserting")
-        print(str(e))
+        return False
 
 def analyze_full_file(file_path='//home//projects//temperature_logger'):
     """
@@ -82,14 +85,21 @@ def analyze_full_file(file_path='//home//projects//temperature_logger'):
                 temperature = temperature.split('C')[0]
                 t_stamp = convert_timezone(t_stamp, 'EST')
                 cursor = cnx.cursor()
-                insert_temperature_record(temperature, t_stamp, cursor, cnx)
-                recordsInserted += 1
+                successful_insert = insert_temperature_record(temperature, t_stamp, cursor, cnx)
+                if successful_insert:
+                    recordsInserted += 1
+                else:
+                    duplicateAttempted += 1
+        logging.info(f"{recordsInserted} records inserted")
+        logging.info(f"{duplicateAttempted} records already exist")
     except Exception as e:
-        print("Error with analyze full file")
+        logging.error("Error with analyze full file")
     finally:
         cnx.close()
     end = timer()
-    print("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
+    logging.info("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
 
 if __name__ == '__main__':
+    logging.info("Calling one shot analyze full file from the command line")
     analyze_full_file()
+    logging.info("Finished")
