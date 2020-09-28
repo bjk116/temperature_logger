@@ -1,4 +1,4 @@
-#!/user/bin/python3
+#!/usr/bin/python3
 """
 For analyzing the data from temp.log
 and then logging that.
@@ -101,8 +101,9 @@ def analyze_full_file(file_path='//home//projects//temperature_logger'):
     logging.info("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
 
 if __name__ == '__main__':
-    logging.info("Number of arguments: %i"%(len(sys.argv)))
-    logging.info("Arguments: " + str(sys.argv))
-    logging.info("Calling one shot analyze full file from the command line")
-    analyze_full_file()
-    logging.info("Finished")
+     logging.info("I've been called")
+#    logging.info("Number of arguments: %i"%(len(sys.argv)))
+#    logging.info("Arguments: " + str(sys.argv))
+#    logging.info("Calling one shot analyze full file from the command line")
+#    analyze_full_file()
+#    logging.info("Finished")
