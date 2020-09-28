@@ -1,8 +1,12 @@
 To-Dos:
 1)  One shot function that searchs entire database and erases corresponding lines
 from the log file
+    answer: actually no, run one shot, and then from then on just directly feed 
+    temperature to pthon script, something like sudo python3 insertRow.py $temperature in crontab
 2)  Good way for function for this one shot full file scan to log results
+    answer: import logging
 3)  Good way to display the database info and stats to the front end
 4)  Cront tab - function that runs every 10 minutes to insert new temp
-records and delets as well
+records and delets as well.
+    answer:  see answer to number 1
 

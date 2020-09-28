@@ -8,3 +8,24 @@
 09/25/2020 12:4037 AM 6897 records already exist
 09/25/2020 12:4037 AM inserted 6 records in 19.433400754991453 seconds
 09/25/2020 12:4037 AM Finished
+09/25/2020 02:1315 PM Number of arguments: 1
+09/25/2020 02:1315 PM Arguments: ['analyze.py']
+09/25/2020 02:1315 PM Calling one shot analyze full file from the command line
+09/25/2020 02:1339 PM 0 records inserted
+09/25/2020 02:1339 PM 6938 records already exist
+09/25/2020 02:1339 PM inserted 0 records in 23.82479872900001 seconds
+09/25/2020 02:1339 PM Finished
+09/25/2020 04:3614 PM Number of arguments: 1
+09/25/2020 04:3614 PM Arguments: ['analyze.py']
+09/25/2020 04:3614 PM Calling one shot analyze full file from the command line
+09/25/2020 04:3815 PM 7067 records inserted
+09/25/2020 04:3815 PM 0 records already exist
+09/25/2020 04:3815 PM inserted 7067 records in 121.35814264100009 seconds
+09/25/2020 04:3815 PM Finished
+09/28/2020 01:2321 PM Number of arguments: 1
+09/28/2020 01:2321 PM Arguments: ['analyze.py']
+09/28/2020 01:2321 PM Calling one shot analyze full file from the command line
+09/28/2020 01:2551 PM 6098 records inserted
+09/28/2020 01:2551 PM 7067 records already exist
+09/28/2020 01:2551 PM inserted 6098 records in 150.16856960899895 seconds
+09/28/2020 01:2551 PM Finished
