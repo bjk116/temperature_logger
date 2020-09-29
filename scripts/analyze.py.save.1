@@ -14,9 +14,14 @@ from timeit import default_timer as timer
 import logging
 import sys
 
+#path = os.path.abspath('..//g//a')
+
 log_file = os.path.abspath('../logs/scripts.log')
 temperature_file_directory = os.path.abspath('../logs')
-logging.basicConfig(filename='../logs/scripts.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M%S %p')
+print(f"log file {log_file}")
+logging.info(log_file)
+logging.info(temperature_file_directory)
+logging.basicConfig(pathnafilename='scripts.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M%S %p')
 logger = logging.getLogger(__name__)
 logger.warning("should see this in file")
 print(logger.handlers)
@@ -68,6 +73,7 @@ def insert_temperature_record(temperature, t_stamp, cursor, cnx):
         cnx.commit()
         return True
     except Exception as e:
+        logging.error(str(e))
         return False
 
 def analyze_full_file(file_path=temperature_file_directory):
@@ -96,14 +102,14 @@ def analyze_full_file(file_path=temperature_file_directory):
                     recordsInserted += 1
                 else:
                     duplicateAttempted += 1
-        logger.info(f"{recordsInserted} records inserted")
-        logger.info(f"{duplicateAttempted} records already exist")
+        logging.info(f"{recordsInserted} records inserted")
+        logging.info(f"{duplicateAttempted} records already exist")
     except Exception as e:
-        logger.exception("Error with analyze full file")
+        logging.exception("Error with analyze full file")
     finally:
         cnx.close()
     end = timer()
-    logger.info("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
+    logging.info("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
 
 if __name__ == '__main__':
      logger.info("I've been called")

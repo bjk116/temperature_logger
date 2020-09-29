@@ -1,8 +1,9 @@
-09/28/2020 04:1034 PM Number of arguments: 1
-09/28/2020 04:1034 PM Arguments: ['analyze.py']
-09/28/2020 04:1034 PM Calling one shot analyze full file from the command line
-09/28/2020 04:1149 PM 85 records inserted
-09/28/2020 04:1149 PM 13402 records already exist
-09/28/2020 04:1149 PM inserted 85 records in 74.79938990299706 seconds
-09/28/2020 04:1149 PM Finished
-09/28/2020 04:2618 PM I've been called
+09/29/2020 09:0029 AM should see this in file
+09/29/2020 09:0029 AM I've been called
+09/29/2020 09:0029 AM Number of arguments: 1
+09/29/2020 09:0029 AM Arguments: ['analyze.py']
+09/29/2020 09:0029 AM Calling one shot analyze full file from the command line
+09/29/2020 09:0033 AM 39 records inserted
+09/29/2020 09:0033 AM 1966 records already exist
+09/29/2020 09:0033 AM inserted 39 records in 3.474737759999698 seconds
+09/29/2020 09:0033 AM Finished

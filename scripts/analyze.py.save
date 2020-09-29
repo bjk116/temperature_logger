@@ -14,27 +14,25 @@ from timeit import default_timer as timer
 import logging
 import sys
 
-log_file = os.path.abspath('../logs/scripts.log')
-temperature_file_directory = os.path.abspath('../logs')
-logging.basicConfig(filename='../logs/scripts.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M%S %p')
-logger = logging.getLogger(__name__)
-logger.warning("should see this in file")
-print(logger.handlers)
+#path = os.path.abspath('..//g//a')
+log_file = os.path.abspath('../logs/s')
+logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M%S %p')
 
-def parse_date(t_stamp):
+def convert_timezone(dt, tz):
     """
-    For parsing date,s eventualy to be put into it's own date module.
+    Found this on stack overflow.  Necessary currently because our pi thinks
+    its in UTC.  I'm leaving it in as it's decent real world practice for manipulating
+    data that isn't tidy/the format you want.
     Args:
         dt: datetime string
+        tz: desired timezone
     Returns:
         dt: datetime object
     """
-    dt = date_parse(t_stamp)
-#    tz = pytz.timezone(tz)
-#    dt = dt.astimezone(tz)
-    db_date =  dt.strftime('%Y-%m-%d %H-%M-%S')
-#    print(f"db date is {db_date}")
-    return db_date
+    dt = date_parse(dt)
+    tz = pytz.timezone(tz)
+    dt = dt.astimezone(tz)
+    return dt
 
 def get_db_connection():
     """
@@ -62,7 +60,6 @@ def insert_temperature_record(temperature, t_stamp, cursor, cnx):
               False if an error occured
     """
     query = f"INSERT INTO temperature_log (degrees, t_stamp)  VALUES({temperature}, '{t_stamp}')"
- #   print(f"{query}")
     try:
         cursor.execute(query)
         cnx.commit()
@@ -70,7 +67,7 @@ def insert_temperature_record(temperature, t_stamp, cursor, cnx):
     except Exception as e:
         return False
 
-def analyze_full_file(file_path=temperature_file_directory):
+def analyze_full_file(file_path='//home//projects//temperature_logger'):
     """
     Scans in the entirety of the temp.log file, figures out the
     unique dates, gets the max, min, and average temperature, and
@@ -89,26 +86,26 @@ def analyze_full_file(file_path=temperature_file_directory):
                 stripped_line = line.strip()
                 temperature, t_stamp = tuple(stripped_line.split(','))
                 temperature = temperature.split('C')[0]
-                t_stamp = parse_date(t_stamp)
+                t_stamp = convert_timezone(t_stamp, 'EST')
                 cursor = cnx.cursor()
                 successful_insert = insert_temperature_record(temperature, t_stamp, cursor, cnx)
                 if successful_insert:
                     recordsInserted += 1
                 else:
                     duplicateAttempted += 1
-        logger.info(f"{recordsInserted} records inserted")
-        logger.info(f"{duplicateAttempted} records already exist")
+        logging.info(f"{recordsInserted} records inserted")
+        logging.info(f"{duplicateAttempted} records already exist")
     except Exception as e:
-        logger.exception("Error with analyze full file")
+        logging.error("Error with analyze full file")
     finally:
         cnx.close()
     end = timer()
-    logger.info("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
+    logging.info("inserted %i records in %s seconds"%(recordsInserted, str(end-start)))
 
 if __name__ == '__main__':
-     logger.info("I've been called")
-     logger.info("Number of arguments: %i"%(len(sys.argv)))
-     logger.info("Arguments: " + str(sys.argv))
-     logging.info("Calling one shot analyze full file from the command line")
+     logging.info("I've been called")
+#    logging.info("Number of arguments: %i"%(len(sys.argv)))
+#    logging.info("Arguments: " + str(sys.argv))
+#    logging.info("Calling one shot analyze full file from the command line")
      analyze_full_file()
-     logging.info("Finished")
+#    logging.info("Finished")
